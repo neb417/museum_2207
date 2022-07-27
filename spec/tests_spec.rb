@@ -2,14 +2,17 @@ require './lib/exhibit'
 require './lib/patron'
 require './lib/museum'
 
-RSpec.describe Exhibit do
-  let(:exhibit) {described_class.new({name: "Gems and Minerals", cost: 0})}
-  let(:patron_1) {Patron.new("Bob", 20)}
-  let(:dmns) {Museum.new("Denver Museum of Nature and Science")}
+RSpec.describe do
+  let(:exhibit) {Exhibit.new({name: "Gems and Minerals", cost: 0})}
   let(:gems_and_minerals) {Exhibit.new({name: "Gems and Minerals", cost: 0})}
   let(:dead_sea_scrolls) {Exhibit.new({name: "Dead Sea Scrolls", cost: 10})}
   let(:imax) {Exhibit.new({name: "IMAX", cost: 15})}
+
+  let(:patron_1) {Patron.new("Bob", 20)}
   let(:patron_2) {Patron.new("Sally", 20)}
+  let(:patron_3) {Patron.new("Johnny", 5)}
+
+  let(:dmns) {Museum.new("Denver Museum of Nature and Science")}
 
   describe 'Iteration 1 tests' do
   it 'is an instance of exhibit' do
@@ -77,11 +80,39 @@ end
 
       patron_1.add_interest("Gems and Minerals")
       patron_1.add_interest("Dead Sea Scrolls")
-      
+
       patron_2.add_interest("IMAX")
 
       expect(dmns.recommend_exhibit(patron_1)).to eq [gems_and_minerals, dead_sea_scrolls]
       expect(dmns.recommend_exhibit(patron_2)).to eq [imax]
+    end
+  end
+
+  describe 'Iteration 3 tests' do
+    xit 'museum has no patrons by default and can add patrons' do
+      expect(dmns.patrons).to eq []
+
+      dmns.admit(patron_1)
+      dmns.admit(patron_2)
+      dmns.admit(patron_3)
+
+      expect(dmns.patrons).to eq [patron_1, patron_2, patron_3]
+    end
+
+    xit 'can sort patrons by interest' do
+      patron_1.add_interest("Gems and Minerals")
+      patron_2.add_interest("Dead Sea Scrolls")
+      patron_3.add_interest("Dead Sea Scrolls")
+
+      expect(dmns.patrons_by_exhibit_interest).to eq{gems_and_minerals: [patron_1], dead_sea_scrolls: [patron_2, patron_3], imax: []}
+    end
+
+    xit 'can have lottery contestants by interest' do
+      expect(dmns.ticket_lottery_contestants(dead_sea_scrolls)).to eq [patron_1, patron_3]
+      # expect(dmns.draw_lottery_winner(dead_sea_scrolls)).to eq "Johnny" || "Bob"
+      # expect(dmns.draw_lottery_winner(gems_and_minerals)).to eq nil
+      # expect(dmns.announce_lottery_winner(imax)).to eq "Bob has won the IMAX edhibit lottery"
+      # expect(dmns.announce_lottery_winner(gems_and_minerals)).to eq "No winners for this lottery"
     end
   end
   
