@@ -8,11 +8,11 @@ RSpec.describe Exhibit do
     expect(exhibit).to be_an_instance_of(Exhibit)
   end
 
-  xit 'has a name' do
+  it 'has a name' do
     expect(exhibit.name).to eq "Gems and Minerals"
   end
 
-  xit 'has a cost' do
+  it 'has a cost' do
     expect(exhibit.cost).to eq 0
   end
 
@@ -20,22 +20,22 @@ RSpec.describe Exhibit do
     expect(patron_1).to be_an_instance_of(Patron)
   end
 
-  xit 'patron has a name' do
+  it 'patron has a name' do
     expect(patron_1.name).to eq "Bob"
   end
 
-  xit 'patron has spending money' do
+  it 'patron has spending money' do
     expect(patron_1.spending_money).to eq 20
   end
 
-  xit 'patron has no interests by default' do
+  it 'patron has no interests by default' do
     expect(patron_1.interests).to eq []
   end
 
-  xit 'patron can add interests' do
+  it 'patron can add interests' do
     patron_1.add_interest("Dead Sea Scrolls")
     patron_1.add_interest("Gems and Minerals")
-    
+
     expect(patron_1.interests).to eq ["Dead Sea Scrolls", "Gems and Minerals"]
   end
   
