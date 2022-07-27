@@ -50,19 +50,19 @@ end
 
   describe 'Iteration 2 tests' do
 
-    xit 'has an instance of museum' do
+    it 'has an instance of museum' do
       expect(dmns).to be_an_instance_of Museum
     end
     
-    xit 'museum has a name' do
+    it 'museum has a name' do
       expect(dmns.name).to eq "Denver Museum of Nature and Science"
     end
 
-    xit 'museum exibits are empty by default' do
+    it 'museum exibits are empty by default' do
       expect(dmns.exhibits).to eq []
     end
 
-    xit 'museum can add exhibits' do
+    it 'museum can add exhibits' do
       dmns.add_exhibit(gems_and_minerals)
       dmns.add_exhibit(dead_sea_scrolls)
       dmns.add_exhibit(imax)
@@ -70,9 +70,14 @@ end
       expect(dmns.exhibits).to eq [gems_and_minerals, dead_sea_scrolls, imax]
     end
 
-    xit 'museum can have recommendations' do
+    it 'museum can have recommendations' do
+      dmns.add_exhibit(gems_and_minerals)
+      dmns.add_exhibit(dead_sea_scrolls)
+      dmns.add_exhibit(imax)
+
       patron_1.add_interest("Gems and Minerals")
       patron_1.add_interest("Dead Sea Scrolls")
+      
       patron_2.add_interest("IMAX")
 
       expect(dmns.recommend_exhibit(patron_1)).to eq [gems_and_minerals, dead_sea_scrolls]
